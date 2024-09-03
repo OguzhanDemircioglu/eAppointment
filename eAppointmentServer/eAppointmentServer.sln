@@ -2,6 +2,12 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eAppointmentServer.Domain", "eAppointmentServer.Domain\eAppointmentServer.Domain.csproj", "{592B37DE-A0F5-4868-B87B-0F2EA63116D1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eAppointmentServer.Application", "eAppointmentServer.Application\eAppointmentServer.Application.csproj", "{7A015978-6DFF-4F29-B740-E5A15B8D42C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eAppointmentServer.InfraStructure", "eAppointmentServer.InfraStructure\eAppointmentServer.InfraStructure.csproj", "{2305171D-B3D6-4787-94C2-5434FCC99A6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eAppointmentServer.WebAPI", "eAppointmentServer.WebAPI\eAppointmentServer.WebAPI.csproj", "{E4275A4E-0BDF-466F-980E-41A206598243}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +18,17 @@ Global
 		{592B37DE-A0F5-4868-B87B-0F2EA63116D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{592B37DE-A0F5-4868-B87B-0F2EA63116D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{592B37DE-A0F5-4868-B87B-0F2EA63116D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A015978-6DFF-4F29-B740-E5A15B8D42C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A015978-6DFF-4F29-B740-E5A15B8D42C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A015978-6DFF-4F29-B740-E5A15B8D42C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A015978-6DFF-4F29-B740-E5A15B8D42C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2305171D-B3D6-4787-94C2-5434FCC99A6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2305171D-B3D6-4787-94C2-5434FCC99A6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2305171D-B3D6-4787-94C2-5434FCC99A6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2305171D-B3D6-4787-94C2-5434FCC99A6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4275A4E-0BDF-466F-980E-41A206598243}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4275A4E-0BDF-466F-980E-41A206598243}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4275A4E-0BDF-466F-980E-41A206598243}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4275A4E-0BDF-466F-980E-41A206598243}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
