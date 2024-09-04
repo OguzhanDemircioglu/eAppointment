@@ -5,9 +5,5 @@ using GenericRepository;
 
 namespace eAppointmentServer.InfraStructure.Repositories;
 
-internal sealed class AppointmentRepository : Repository<Appointment, ApplicationDbContext>, IAppointmentRepository
-{
-    public AppointmentRepository(ApplicationDbContext context) : base(context)
-    {
-    }
-}
+internal sealed class AppointmentRepository(ApplicationDbContext context)
+    : Repository<Appointment, ApplicationDbContext>(context), IAppointmentRepository;

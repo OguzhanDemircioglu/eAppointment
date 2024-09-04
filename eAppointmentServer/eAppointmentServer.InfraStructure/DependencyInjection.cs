@@ -21,7 +21,10 @@ public static class DependencyInjection
         services.AddIdentity<AppUser, AppRole>(action =>
         {
             action.Password.RequiredLength = 1;
+            action.Password.RequireUppercase = false;
+            action.Password.RequireLowercase = false;
             action.Password.RequireNonAlphanumeric = false;
+            action.Password.RequireDigit = false;
         }).AddEntityFrameworkStores<ApplicationDbContext>();
 
         services.AddScoped<IUnitOfWork>(srv => srv.GetRequiredService<ApplicationDbContext>());

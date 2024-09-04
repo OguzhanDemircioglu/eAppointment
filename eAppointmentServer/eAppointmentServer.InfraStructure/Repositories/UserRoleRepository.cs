@@ -5,9 +5,5 @@ using GenericRepository;
 
 namespace eAppointmentServer.InfraStructure.Repositories;
 
-internal sealed class UserRoleRepository : Repository<AppUserRole, ApplicationDbContext>, IUserRoleRepository
-{
-    public UserRoleRepository(ApplicationDbContext context) : base(context)
-    {
-    }
-}
+internal sealed class UserRoleRepository(ApplicationDbContext context)
+    : Repository<AppUserRole, ApplicationDbContext>(context), IUserRoleRepository;

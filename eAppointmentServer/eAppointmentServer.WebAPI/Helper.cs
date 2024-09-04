@@ -7,19 +7,26 @@ public static class Helper
 {
     public static async Task CreateUserAsync(WebApplication app)
     {
-        using (var scoped = app.Services.CreateScope())
+        using var scoped = app.Services.CreateScope();
+        var userManager = scoped.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
+        try
         {
-            var userManager = scoped.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
             if (!userManager.Users.Any())
             {
                 await userManager.CreateAsync(new()
                 {
-                    FirstName = "Taner",
-                    LastName = "Saydam",
+                    FirstName = "Oğuzhan",
+                    LastName = "Demircioğlu",
                     Email = "admin@admin.com",
                     UserName = "admin",
                 }, "1");
             }
         }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+
     }
 }
