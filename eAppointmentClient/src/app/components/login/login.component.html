@@ -6,7 +6,7 @@
         <p>Please Fill the Form</p>
       </div>
       <div class="card-body">
-        <form #loginForm="ngForm" formValidate>
+        <form #loginForm="ngForm" formValidate (ngSubmit)="loginMethod(loginForm)">
           <div class="form-group">
             <label>Username or Email</label>
             <input type="text" class="form-control" [(ngModel)]="login.userNameorEmail" name="userNameorEmail" minlength="3" required>
@@ -23,7 +23,7 @@
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group mt-2">
-            <button class="btn btn-dark w-100">
+            <button class="btn btn-dark w-100" type="submit">
               <i class="fa-solid fa-lock me-1"></i>
               Login
             </button>
