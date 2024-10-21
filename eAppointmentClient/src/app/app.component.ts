@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import {Component} from '@angular/core';
+import {RouterOutlet} from '@angular/router';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/js/bootstrap.js";
 
 @Component({
   selector: 'app-root',
@@ -8,4 +10,5 @@ import 'bootstrap/dist/css/bootstrap.min.css';
   imports: [RouterOutlet],
   template: "<router-outlet></router-outlet>"
 })
-export class AppComponent {}
+export class AppComponent {
+}
