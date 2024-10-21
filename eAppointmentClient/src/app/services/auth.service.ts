@@ -34,7 +34,9 @@ export class AuthService {
       this.tokenDecode.name = decode["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
       this.tokenDecode.email = decode["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"];
       this.tokenDecode.username = decode["UserName"];
+      this.tokenDecode.roles = decode["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
 
+      console.log(this.tokenDecode);
       return true;
     }
 
