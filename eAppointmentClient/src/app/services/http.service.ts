@@ -2,13 +2,16 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {ResultModel} from "../models/result.model";
 import {api} from "../constats";
+import {ErrorService} from "./error.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
   token: string = "";
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private error: ErrorService) {
     if(localStorage.getItem("token")){
       this.token = localStorage.getItem("token") ?? "";
     }
@@ -25,6 +28,7 @@ export class HttpService {
         callBack(res);
       }),
       error: (err: HttpErrorResponse) => {
+        this.error.errorHandler(err);
         if (errCallBack !== undefined) {
           errCallBack(err);
         }
