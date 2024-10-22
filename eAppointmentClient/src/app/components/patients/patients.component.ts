@@ -5,6 +5,7 @@ import {FormsModule, NgForm} from "@angular/forms";
 import {FormValidateDirective} from "form-validate-angular";
 import {PatientModel} from "../../models/patient.model";
 import {HttpService} from "../../services/http.service";
+import {SwalService} from "../../services/swal.service";
 
 @Component({
   selector: 'app-patients',
@@ -13,7 +14,7 @@ import {HttpService} from "../../services/http.service";
   templateUrl: './patients.component.html',
   styleUrl: './patients.component.scss'
 })
-export class PatientsComponent implements OnInit{
+export class PatientsComponent implements OnInit {
   patients: PatientModel[] = [];
   createModel: PatientModel = new PatientModel();
   updateModel: PatientModel = new PatientModel();
@@ -25,7 +26,9 @@ export class PatientsComponent implements OnInit{
     this.getAll();
   }
 
-  constructor(private http: HttpService) {
+  constructor(
+    private http: HttpService,
+    private swal: SwalService) {
   }
 
   getAll() {
@@ -38,7 +41,7 @@ export class PatientsComponent implements OnInit{
     if (form.valid) {
       this.http.post<string>("Patient/Create", this.createModel, (res) => {
         if (res) {
-          alert(res.data);
+          this.swal.callToast(res.data);
           this.getAll();
           this.addModalCloseButton?.nativeElement.click();
           this.createModel = new PatientModel();
@@ -47,14 +50,16 @@ export class PatientsComponent implements OnInit{
     }
   }
 
-  delete(id:string) {
-    this.http.post<string>("Patient/Delete", {id:id}, (res) => {
-      alert(res.data) ;
-      this.getAll();
-    })
+  delete(id: string) {
+    this.swal.callSwalForDelete(() => {
+      this.http.post<string>("Patient/Delete", {id: id}, (res) => {
+        this.swal.callToast(res.data);
+        this.getAll();
+      });
+    });
   }
 
-  get(data: PatientModel){
+  get(data: PatientModel) {
     this.updateModel = {...data};
   }
 
@@ -62,7 +67,7 @@ export class PatientsComponent implements OnInit{
     if (form.valid) {
       this.http.post<string>("Patient/Update", this.updateModel, (res) => {
         if (res) {
-          alert(res.data);
+          this.swal.callToast(res.data);
           this.getAll();
           this.updateModelCloseBtn?.nativeElement.click();
           this.updateModel = new PatientModel();

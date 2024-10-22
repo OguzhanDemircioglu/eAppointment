@@ -6,6 +6,7 @@ import {CommonModule} from "@angular/common";
 import {FormsModule, NgForm} from "@angular/forms";
 import {departments} from "../../constats";
 import {FormValidateDirective} from "form-validate-angular";
+import {SwalService} from "../../services/swal.service";
 
 @Component({
   selector: 'app-doctors',
@@ -27,7 +28,10 @@ export class DoctorsComponent implements OnInit {
     this.getAll();
   }
 
-  constructor(private http: HttpService) {
+  constructor(
+    private http: HttpService,
+    private swal: SwalService
+  ) {
   }
 
   getAll() {
@@ -44,7 +48,7 @@ export class DoctorsComponent implements OnInit {
     if (form.valid) {
       this.http.post<string>("Doctor/Create", this.createModel, (res) => {
         if (res) {
-          alert(res.data);
+          this.swal.callToast(res.data);
           this.getAll();
           this.addModalCloseButton?.nativeElement.click();
           this.createModel = new DoctorModel();
@@ -53,27 +57,29 @@ export class DoctorsComponent implements OnInit {
     }
   }
 
-  delete(id:string) {
-    this.http.post<string>("Doctor/Delete", {id:id}, (res) => {
-      alert(res.data) ;
-      this.getAll();
-    })
+  delete(id: string) {
+    this.swal.callSwalForDelete(()=> {
+      this.http.post<string>("Doctor/Delete", {id: id}, (res) => {
+        this.swal.callToast(res.data);
+        this.getAll();
+      })
+    });
   }
 
-  get(data: DoctorModel){
+  get(data: DoctorModel) {
     this.updateModel = {...data};
     this.updateModel.departmentValue = data.department.value;
   }
 
   update(form: NgForm) {
     if (this.updateModel.departmentValue === 0) {
-      alert("Select Department!");
+      this.swal.callToast("Select Department!", "error");
       return;
     }
     if (form.valid) {
       this.http.post<string>("Doctor/Update", this.updateModel, (res) => {
         if (res) {
-          alert(res.data);
+          this.swal.callToast(res.data);
           this.getAll();
           this.updateModelCloseBtn?.nativeElement.click();
           this.updateModel = new DoctorModel();
