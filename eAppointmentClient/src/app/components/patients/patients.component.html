@@ -19,7 +19,7 @@
       </div>
 
       <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-12 position-relative">
-        <input type="search" class="form-control" placeholder="Search Patient...">
+        <input type="search" class="form-control" [(ngModel)]="search" placeholder="Search Patient...">
         <i class="fa-solid fa-magnifying-glass search"></i>
       </div>
     </div>
@@ -38,7 +38,7 @@
       </tr>
       </thead>
       <tbody>
-        @for (data of patients; track data) {
+        @for (data of patients | patient: search; track data) {
           <tr>
             <td>{{ $index + 1 }}</td>
             <td>{{ data.fullName }}</td>
@@ -88,7 +88,8 @@
 
           <div class="form-group mt-2">
             <label>Identity Number</label>
-            <input type="text" [(ngModel)]="createModel.identityNumber" name="identityNumber" class="form-control" required
+            <input type="text" [(ngModel)]="createModel.identityNumber" name="identityNumber" class="form-control"
+                   required
                    minlength="3">
             <div class="invalid-feedback"></div>
           </div>
@@ -130,7 +131,8 @@
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5">Update Doctor Form</h1>
-        <button type="button" #updateModelCloseBtn class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" #updateModelCloseBtn class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
       </div>
       <form #updateForm="ngForm" formValidate autocomplete="off" (ngSubmit)="update(updateForm)">
         <div class="modal-body">
@@ -151,7 +153,8 @@
 
           <div class="form-group mt-2">
             <label>Identity Number</label>
-            <input type="text" [(ngModel)]="updateModel.identityNumber" name="updateidentityNumber" class="form-control" required
+            <input type="text" [(ngModel)]="updateModel.identityNumber" name="updateidentityNumber" class="form-control"
+                   required
                    minlength="3">
             <div class="invalid-feedback"></div>
           </div>
@@ -172,7 +175,8 @@
 
           <div class="form-group mt-2">
             <label>Full Address</label>
-            <input type="text" [(ngModel)]="updateModel.fullAddress" name="updatefullAddress" class="form-control" required
+            <input type="text" [(ngModel)]="updateModel.fullAddress" name="updatefullAddress" class="form-control"
+                   required
                    minlength="3">
             <div class="invalid-feedback"></div>
           </div>

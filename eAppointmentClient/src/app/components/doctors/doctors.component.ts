@@ -7,11 +7,12 @@ import {FormsModule, NgForm} from "@angular/forms";
 import {departments} from "../../constats";
 import {FormValidateDirective} from "form-validate-angular";
 import {SwalService} from "../../services/swal.service";
+import {DoctorPipe} from "../../pipes/doctor.pipe";
 
 @Component({
   selector: 'app-doctors',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule, FormValidateDirective],
+  imports: [CommonModule, RouterLink, FormsModule, FormValidateDirective, DoctorPipe],
   templateUrl: './doctors.component.html',
   styleUrl: './doctors.component.scss'
 })
@@ -20,6 +21,7 @@ export class DoctorsComponent implements OnInit {
   createModel: DoctorModel = new DoctorModel();
   updateModel: DoctorModel = new DoctorModel();
   departments = departments;
+  search: string = "";
 
   @ViewChild("addModalCloseBtn") addModalCloseButton: ElementRef<HTMLButtonElement> | undefined;
   @ViewChild("updateModelCloseBtn") updateModelCloseBtn: ElementRef<HTMLButtonElement> | undefined;
@@ -58,7 +60,7 @@ export class DoctorsComponent implements OnInit {
   }
 
   delete(id: string) {
-    this.swal.callSwalForDelete(()=> {
+    this.swal.callSwalForDelete(() => {
       this.http.post<string>("Doctor/Delete", {id: id}, (res) => {
         this.swal.callToast(res.data);
         this.getAll();

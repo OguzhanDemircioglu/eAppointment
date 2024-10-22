@@ -6,11 +6,12 @@ import {FormValidateDirective} from "form-validate-angular";
 import {PatientModel} from "../../models/patient.model";
 import {HttpService} from "../../services/http.service";
 import {SwalService} from "../../services/swal.service";
+import {PatientPipe} from "../../pipes/patient.pipe";
 
 @Component({
   selector: 'app-patients',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule, FormValidateDirective],
+  imports: [CommonModule, RouterLink, FormsModule, FormValidateDirective, PatientPipe],
   templateUrl: './patients.component.html',
   styleUrl: './patients.component.scss'
 })
@@ -18,6 +19,7 @@ export class PatientsComponent implements OnInit {
   patients: PatientModel[] = [];
   createModel: PatientModel = new PatientModel();
   updateModel: PatientModel = new PatientModel();
+  search: string = "";
 
   @ViewChild("addModalCloseBtn") addModalCloseButton: ElementRef<HTMLButtonElement> | undefined;
   @ViewChild("updateModelCloseBtn") updateModelCloseBtn: ElementRef<HTMLButtonElement> | undefined;
