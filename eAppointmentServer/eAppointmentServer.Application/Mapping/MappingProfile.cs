@@ -17,8 +17,12 @@ public sealed class MappingProfile: Profile
       {
         options.MapFrom(t=> DepartmentEnum.FromValue(t.DepartmentValue));
       });
-
-    CreateMap<UpdateDoctorCommand, Doctor>();
+    
+    CreateMap<UpdateDoctorCommand, Doctor>()
+      .ForMember(m=>m.Department, options =>
+      {
+        options.MapFrom(t=> DepartmentEnum.FromValue(t.DepartmentValue));
+      });
     
     CreateMap<CreatePatientCommand, Patient>();
     CreateMap<UpdatePatientCommand, Patient>();

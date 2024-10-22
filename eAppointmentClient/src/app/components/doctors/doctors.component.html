@@ -38,14 +38,14 @@
       <tbody>
         @for (doctor of doctors; track doctor) {
           <tr>
-            <td>{{ $index }}</td>
+            <td>{{ $index + 1 }}</td>
             <td>{{ doctor.fullName }}</td>
             <td>{{ doctor.department.name }}</td>
             <td>
-              <button class="btn btn-sm btn-outline-primary me-1" title="Update">
+              <button class="btn btn-sm btn-outline-primary me-1" data-bs-toggle="modal" data-bs-target="#updateModel" title="Update" (click)="get(doctor)">
                 <i class="fa-solid fa-edit"></i>
               </button>
-              <button class="btn btn-sm btn-outline-danger" title="Delete">
+              <button class="btn btn-sm btn-outline-danger" title="Delete" (click)="delete(doctor.id)">
                 <i class="fa-solid fa-trash"></i>
               </button>
             </td>
@@ -98,3 +98,46 @@
   </div>
 </div>
 <!-- Create Modal -->
+
+<!-- Update Modal -->
+<div class="modal fade" id="updateModel" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5">Update Doctor Form</h1>
+        <button type="button" #updateModelCloseBtn class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form #updateForm="ngForm" formValidate autocomplete="off" (ngSubmit)="update(updateForm)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" [(ngModel)]="updateModel.firstName" name="updatefirstName" class="form-control" required
+                   minlength="3">
+            <div class="invalid-feedback"></div>
+          </div>
+
+          <div class="form-group mt-2">
+            <label>Last Name</label>
+            <input type="text" [(ngModel)]="updateModel.lastName" name="updatelastName" class="form-control" required
+                   minlength="3">
+            <div class="invalid-feedback"></div>
+          </div>
+
+          <div class="form-group mt-2">
+            <label>Department</label>
+            <select class="form-control" name="updatedepartment" [(ngModel)]="updateModel.departmentValue" required>
+              <option [ngValue]="0">Select...</option>
+              <option *ngFor="let department of departments" [ngValue]="department.value">{{ department.name }}</option>
+            </select>
+
+            <div class="invalid-feedback"></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-dark w-100">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Update Modal -->
