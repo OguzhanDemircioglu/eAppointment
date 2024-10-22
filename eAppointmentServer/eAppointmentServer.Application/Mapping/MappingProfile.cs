@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
 using eAppointmentServer.Application.Features.Doctors.CreateDoctor;
+using eAppointmentServer.Application.Features.Doctors.UpdateDoctor;
+using eAppointmentServer.Application.Features.Patients.CreatePatient;
+using eAppointmentServer.Application.Features.Patients.UpdatePatient;
 using eAppointmentServer.Domain.Entities;
 using eAppointmentServer.Domain.Enums;
 
@@ -14,5 +17,10 @@ public sealed class MappingProfile: Profile
       {
         options.MapFrom(t=> DepartmentEnum.FromValue(t.DepartmentValue));
       });
+
+    CreateMap<UpdateDoctorCommand, Doctor>();
+    
+    CreateMap<CreatePatientCommand, Patient>();
+    CreateMap<UpdatePatientCommand, Patient>();
   }
 }
