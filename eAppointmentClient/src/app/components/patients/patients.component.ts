@@ -1,0 +1,73 @@
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {CommonModule} from "@angular/common";
+import {RouterLink} from "@angular/router";
+import {FormsModule, NgForm} from "@angular/forms";
+import {FormValidateDirective} from "form-validate-angular";
+import {PatientModel} from "../../models/patient.model";
+import {HttpService} from "../../services/http.service";
+
+@Component({
+  selector: 'app-patients',
+  standalone: true,
+  imports: [CommonModule, RouterLink, FormsModule, FormValidateDirective],
+  templateUrl: './patients.component.html',
+  styleUrl: './patients.component.scss'
+})
+export class PatientsComponent implements OnInit{
+  patients: PatientModel[] = [];
+  createModel: PatientModel = new PatientModel();
+  updateModel: PatientModel = new PatientModel();
+
+  @ViewChild("addModalCloseBtn") addModalCloseButton: ElementRef<HTMLButtonElement> | undefined;
+  @ViewChild("updateModelCloseBtn") updateModelCloseBtn: ElementRef<HTMLButtonElement> | undefined;
+
+  ngOnInit(): void {
+    this.getAll();
+  }
+
+  constructor(private http: HttpService) {
+  }
+
+  getAll() {
+    this.http.post<PatientModel[]>("Patient/GetAll", {}, (res) => {
+      this.patients = res.data;
+    })
+  }
+
+  add(form: NgForm) {
+    if (form.valid) {
+      this.http.post<string>("Patient/Create", this.createModel, (res) => {
+        if (res) {
+          alert(res.data);
+          this.getAll();
+          this.addModalCloseButton?.nativeElement.click();
+          this.createModel = new PatientModel();
+        }
+      });
+    }
+  }
+
+  delete(id:string) {
+    this.http.post<string>("Patient/Delete", {id:id}, (res) => {
+      alert(res.data) ;
+      this.getAll();
+    })
+  }
+
+  get(data: PatientModel){
+    this.updateModel = {...data};
+  }
+
+  update(form: NgForm) {
+    if (form.valid) {
+      this.http.post<string>("Patient/Update", this.updateModel, (res) => {
+        if (res) {
+          alert(res.data);
+          this.getAll();
+          this.updateModelCloseBtn?.nativeElement.click();
+          this.updateModel = new PatientModel();
+        }
+      });
+    }
+  }
+}
