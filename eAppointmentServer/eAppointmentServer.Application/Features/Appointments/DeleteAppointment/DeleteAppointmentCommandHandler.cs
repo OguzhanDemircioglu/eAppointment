@@ -1,4 +1,5 @@
 ﻿using eAppointmentServer.Domain.Entities;
+using eAppointmentServer.Domain.Enums;
 using eAppointmentServer.Domain.Repositories;
 using GenericRepository;
 using MediatR;
@@ -17,12 +18,12 @@ internal sealed class DeleteAppointmentCommandHandler(
 
     if (appointment is null)
     {
-      return Result<string>.Failure("No Record");
+      return Result<string>.Failure(ResultMessages.NO_RECORD);
     }
     
     repository.Delete(appointment);
     await unitOfWork.SaveChangesAsync(cancellationToken);
 
-    return "Appointment is Deleted";
+    return ResultMessages.RECORD_DELETED;
   }
 }

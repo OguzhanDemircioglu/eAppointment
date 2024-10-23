@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using eAppointmentServer.Domain.Entities;
+using eAppointmentServer.Domain.Enums;
 using eAppointmentServer.Domain.Repositories;
 using GenericRepository;
 using MediatR;
@@ -18,14 +19,14 @@ internal sealed class UpdateDoctorCommandHandler(
 
     if (doctor is null)
     {
-      return Result<string>.Failure("No Record");
+      return Result<string>.Failure(ResultMessages.NO_RECORD);
     }
-    
+
     doctor = mapper.Map<Doctor>(request);
-    
+
     repository.Update(doctor);
     await unitOfWork.SaveChangesAsync(cancellationToken);
 
-    return "Doctor is Updated";
+    return ResultMessages.RECORD_UPDATED;
   }
 }

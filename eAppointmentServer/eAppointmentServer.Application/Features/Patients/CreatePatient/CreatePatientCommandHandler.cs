@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using eAppointmentServer.Domain.Entities;
+using eAppointmentServer.Domain.Enums;
 using eAppointmentServer.Domain.Repositories;
 using GenericRepository;
 using MediatR;
@@ -14,16 +15,16 @@ internal sealed class CreatePatientCommandHandler(
 {
   public async Task<Result<string>> Handle(CreatePatientCommand request, CancellationToken cancellationToken)
   {
-    if(repository.Any(p=> p.IdentityNumber == request.IdentityNumber))
+    if (repository.Any(p => p.IdentityNumber == request.IdentityNumber))
     {
-      return Result<string>.Failure("This identity number already use");
+      return Result<string>.Failure(ResultMessages.SAME_IDENTITY);
     }
-    
+
     Patient patient = mapper.Map<Patient>(request);
 
-    await repository.AddAsync(patient,cancellationToken);
+    await repository.AddAsync(patient, cancellationToken);
     await unitOfWork.SaveChangesAsync(cancellationToken);
 
-    return "Patient is Created";
+    return ResultMessages.RECORD_ADDED;
   }
 }

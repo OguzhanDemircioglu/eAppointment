@@ -1,4 +1,5 @@
 ﻿using eAppointmentServer.Domain.Entities;
+using eAppointmentServer.Domain.Enums;
 using eAppointmentServer.Domain.Repositories;
 using GenericRepository;
 using MediatR;
@@ -44,7 +45,7 @@ internal sealed class CreateAppointmentCommandHandler(
 
     if (isAppointmentDateNotAvailable)
     {
-      return Result<string>.Failure("Appointment date is not available");
+      return Result<string>.Failure(ResultMessages.INVALID_DATE);
     }
 
     bool isPatientHasConflictingAppointmentWithAnotherDoctor =
@@ -59,7 +60,7 @@ internal sealed class CreateAppointmentCommandHandler(
 
     if (isPatientHasConflictingAppointmentWithAnotherDoctor)
     {
-      return Result<string>.Failure("Patient already has an appointment with another doctor at the same time");
+      return Result<string>.Failure(ResultMessages.SAME_DATE);
     }
 
     Appointment appointment = new()
@@ -75,6 +76,6 @@ internal sealed class CreateAppointmentCommandHandler(
 
     await unitOfWork.SaveChangesAsync(cancellationToken);
 
-    return "Appointment is Created";
+    return ResultMessages.RECORD_ADDED;
   }
 }

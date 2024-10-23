@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using eAppointmentServer.Domain.Entities;
+using eAppointmentServer.Domain.Enums;
 using eAppointmentServer.Domain.Repositories;
 using GenericRepository;
 using MediatR;
@@ -19,6 +20,6 @@ internal sealed class CreateDoctorCommandHandler(
     await repository.AddAsync(doctor, cancellationToken);
     await unitOfWork.SaveChangesAsync(cancellationToken);
 
-    return "Doctor create is Successfull";
+    return ResultMessages.RECORD_ADDED;
   }
 }

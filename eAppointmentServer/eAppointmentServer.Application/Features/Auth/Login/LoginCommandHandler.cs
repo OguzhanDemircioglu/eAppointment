@@ -1,5 +1,6 @@
 ﻿using eAppointmentServer.Application.Services;
 using eAppointmentServer.Domain.Entities;
+using eAppointmentServer.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -20,13 +21,13 @@ internal sealed class LoginCommandHandler(
 
         if (appUser is null)
         {
-            return Result<LoginCommandResponse>.Failure("User not found");
+            return Result<LoginCommandResponse>.Failure(ResultMessages.NO_USER);
         }
 
         bool isPasswordCorrect = await userManager.CheckPasswordAsync(appUser, request.Password);
         if (!isPasswordCorrect)
         {
-            return Result<LoginCommandResponse>.Failure("Password is wrong");
+            return Result<LoginCommandResponse>.Failure(ResultMessages.WRONG_PASSWORD);
         }
 
         string token = await jwtProvider.CreateTokenAsync(appUser);

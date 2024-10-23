@@ -15,6 +15,8 @@ export class ErrorService {
     let message = "Error";
     if(err.status === 0){
       message = "API is not available";
+    }else if(err.status === 401){
+      message = "You are not Authorized";
     }else if(err.status === 404){
       message = "API not found";
     }else if(err.status === 500){
