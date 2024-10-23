@@ -1,6 +1,7 @@
 ﻿using eAppointmentServer.Application.Features.Doctors.CreateDoctor;
 using eAppointmentServer.Application.Features.Doctors.DeleteDoctor;
 using eAppointmentServer.Application.Features.Doctors.GetAllDoctors;
+using eAppointmentServer.Application.Features.Doctors.GetAllDoctorsByDepartmentId;
 using eAppointmentServer.Application.Features.Doctors.UpdateDoctor;
 using eAppointmentServer.WebAPI.Abstracts;
 using MediatR;
@@ -33,6 +34,13 @@ public sealed class DoctorController(IMediator mediator) : ApiController(mediato
   
   [HttpPost]
   public async Task<IActionResult> Delete(DeleteDoctorCommand request, CancellationToken cancellationToken)
+  {
+    var response = await _mediator.Send(request, cancellationToken);
+    return StatusCode(response.StatusCode, response);
+  }
+  
+  [HttpPost]
+  public async Task<IActionResult> GetAllDoctorsByDepartmentId(GetAllDoctorsByDepartmentIdQuery request, CancellationToken cancellationToken)
   {
     var response = await _mediator.Send(request, cancellationToken);
     return StatusCode(response.StatusCode, response);

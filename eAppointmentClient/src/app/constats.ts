@@ -2,6 +2,28 @@
 
 export const api: string = "https://localhost:5000/api";
 
+export const formatDate = (date: Date, format: string) => {
+  const options: Intl.DateTimeFormatOptions = {};
+
+  if (format.includes('MM')) {
+    options.month = '2-digit';
+  }
+  if (format.includes('dd')) {
+    options.day = '2-digit';
+  }
+  if (format.includes('yyyy')) {
+    options.year = 'numeric';
+  }
+  if (format.includes('HH')) {
+    options.hour = '2-digit';
+  }
+  if (format.includes('mm')) {
+    options.minute = '2-digit';
+  }
+
+  return new Intl.DateTimeFormat('tr-tr', options).format(date);
+};
+
 export const departments: DepartmentModel[] = [
   {
     value: 1,
