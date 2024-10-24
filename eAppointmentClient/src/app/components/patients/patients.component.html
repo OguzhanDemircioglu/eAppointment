@@ -90,7 +90,9 @@
             <label>Identity Number</label>
             <input type="text" [(ngModel)]="createModel.identityNumber" name="identityNumber" class="form-control"
                    required
-                   minlength="3">
+                   minlength="11"
+                   maxlength="11"
+            >
             <div class="invalid-feedback"></div>
           </div>
 
@@ -130,7 +132,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5">Update Doctor Form</h1>
+        <h1 class="modal-title fs-5">Update Patient Form</h1>
         <button type="button" #updateModelCloseBtn class="btn-close" data-bs-dismiss="modal"
                 aria-label="Close"></button>
       </div>
@@ -155,7 +157,9 @@
             <label>Identity Number</label>
             <input type="text" [(ngModel)]="updateModel.identityNumber" name="updateidentityNumber" class="form-control"
                    required
-                   minlength="3">
+                   minlength="11"
+                   maxlength="11"
+            >
             <div class="invalid-feedback"></div>
           </div>
 
